@@ -7,9 +7,12 @@
 package table
 
 import (
+	"bytes"
+	"compress/zlib"
 	"encoding/binary"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"sort"
 	"strings"
 	"sync"
@@ -588,6 +591,16 @@ func (r *Reader) readRawBlock(bh blockHandle, verifyChecksum bool) ([]byte, erro
 			return nil, r.newErrCorruptedBH(bh, err.Error())
 		}
 		data = decData
+	case blockTypeZlibCompression:
+		decLen := bytes.NewReader(data[:bh.length])
+		zr, err := zlib.NewReader(decLen)
+		if err != nil {
+			return nil, r.newErrCorruptedBH(bh, err.Error())
+		}
+		data, err = ioutil.ReadAll(zr)
+		if err != nil {
+			return nil, r.newErrCorruptedBH(bh, err.Error())
+		}
 	default:
 		r.bpool.Put(data)
 		return nil, r.newErrCorruptedBH(bh, fmt.Sprintf("unknown compression type %#x", data[bh.length]))
