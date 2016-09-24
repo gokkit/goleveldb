@@ -1,3 +1,27 @@
+This is a fork of [syndtr/goleveldb](https://github.com/syndtr/goleveldb) for the sole purpose of using it to access Minecraft Portable Edition exported .mcworld files.
+The change is to use zlib compression as previously-undefined compression type 2 instead of type 1 Snappy compression.
+
+At this time, only the read function has been changed to use zlib compression. I have successfully opened and read MCPE with these changes.
+
+My project using this fork: [midnightfreddie/McpeTool](https://github.com/midnightfreddie/goleveldb)
+
+## Build instructions
+
+Because of how Go handles $GOPATH and fully-qualified import library names, forking a project and making minor changes is a bit difficult.
+Here is the best way to build, assuming $GOPATH is set and Go is installed:
+
+    go get syndtr/goleveldb
+	cd $GOPATH/src/github.com/syndtr/goleveldb
+	# or the following for Windows
+	cd %GOPATH%\src\github.com\syndtr\goleveldb
+	git remote add mcpe https://github.com/midnightfreddie/goleveldb.git
+	git pull mcpe master
+
+This will apply this fork's changes to your local goleveldb.
+
+Upstream readme:
+-----
+
 This is an implementation of the [LevelDB key/value database](http:code.google.com/p/leveldb) in the [Go programming language](http:golang.org).
 
 [![Build Status](https://travis-ci.org/syndtr/goleveldb.png?branch=master)](https://travis-ci.org/syndtr/goleveldb)
