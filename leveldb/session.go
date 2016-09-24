@@ -12,10 +12,10 @@ import (
 	"os"
 	"sync"
 
-	"github.com/syndtr/goleveldb/leveldb/errors"
-	"github.com/syndtr/goleveldb/leveldb/journal"
-	"github.com/syndtr/goleveldb/leveldb/opt"
-	"github.com/syndtr/goleveldb/leveldb/storage"
+	"github.com/midnightfreddie/goleveldb/leveldb/errors"
+	"github.com/midnightfreddie/goleveldb/leveldb/journal"
+	"github.com/midnightfreddie/goleveldb/leveldb/opt"
+	"github.com/midnightfreddie/goleveldb/leveldb/storage"
 )
 
 // ErrManifestCorrupted records manifest corruption.

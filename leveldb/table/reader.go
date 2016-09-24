@@ -19,14 +19,14 @@ import (
 
 	"github.com/golang/snappy"
 
-	"github.com/syndtr/goleveldb/leveldb/cache"
-	"github.com/syndtr/goleveldb/leveldb/comparer"
-	"github.com/syndtr/goleveldb/leveldb/errors"
-	"github.com/syndtr/goleveldb/leveldb/filter"
-	"github.com/syndtr/goleveldb/leveldb/iterator"
-	"github.com/syndtr/goleveldb/leveldb/opt"
-	"github.com/syndtr/goleveldb/leveldb/storage"
-	"github.com/syndtr/goleveldb/leveldb/util"
+	"github.com/midnightfreddie/goleveldb/leveldb/cache"
+	"github.com/midnightfreddie/goleveldb/leveldb/comparer"
+	"github.com/midnightfreddie/goleveldb/leveldb/errors"
+	"github.com/midnightfreddie/goleveldb/leveldb/filter"
+	"github.com/midnightfreddie/goleveldb/leveldb/iterator"
+	"github.com/midnightfreddie/goleveldb/leveldb/opt"
+	"github.com/midnightfreddie/goleveldb/leveldb/storage"
+	"github.com/midnightfreddie/goleveldb/leveldb/util"
 )
 
 var (
