@@ -4,7 +4,7 @@ This is a fork of [syndtr/goleveldb](https://github.com/syndtr/goleveldb) for th
 
 At this time, only the read function has been changed. I have successfully opened and read the db folder of an MCPE .mcworld file with these changes. MCPE-compatible writing is not yet implemented.
 
-My project using this fork: [midnightfreddie/McpeTool](https://github.com/midnightfreddie/goleveldb)
+My project using this fork: [midnightfreddie/McpeTool](https://github.com/midnightfreddie/McpeTool)
 
 
 ## Fork philosophy / strategy
