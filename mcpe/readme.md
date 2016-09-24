@@ -1,0 +1,1 @@
+This folder contains tool(s) for maintaining the MCPE fork of goleveldb.
