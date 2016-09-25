@@ -7,12 +7,12 @@
 package table
 
 import (
+	"bytes"
+	"compress/zlib"
 	"encoding/binary"
 	"errors"
 	"fmt"
 	"io"
-
-	"github.com/golang/snappy"
 
 	"github.com/midnightfreddie/goleveldb/leveldb/comparer"
 	"github.com/midnightfreddie/goleveldb/leveldb/filter"
@@ -162,20 +162,30 @@ type Writer struct {
 func (w *Writer) writeBlock(buf *util.Buffer, compression opt.Compression) (bh blockHandle, err error) {
 	// Compress the buffer if necessary.
 	var b []byte
-	if compression == opt.SnappyCompression {
-		// Allocate scratch enough for compression and block trailer.
-		if n := snappy.MaxEncodedLen(buf.Len()) + blockTrailerLen; len(w.compressionScratch) < n {
-			w.compressionScratch = make([]byte, n)
-		}
-		compressed := snappy.Encode(w.compressionScratch, buf.Bytes())
-		n := len(compressed)
-		b = compressed[:n+blockTrailerLen]
-		b[n] = blockTypeSnappyCompression
-	} else {
-		tmp := buf.Alloc(blockTrailerLen)
-		tmp[0] = blockTypeNoCompression
-		b = buf.Bytes()
-	}
+	// if compression == opt.SnappyCompression {
+	// 	// Allocate scratch enough for compression and block trailer.
+	// 	if n := snappy.MaxEncodedLen(buf.Len()) + blockTrailerLen; len(w.compressionScratch) < n {
+	// 		w.compressionScratch = make([]byte, n)
+	// 	}
+	// 	compressed := snappy.Encode(w.compressionScratch, buf.Bytes())
+	// 	n := len(compressed)
+	// 	b = compressed[:n+blockTrailerLen]
+	// 	b[n] = blockTypeSnappyCompression
+	// } else {
+	// 	tmp := buf.Alloc(blockTrailerLen)
+	// 	tmp[0] = blockTypeNoCompression
+	// 	b = buf.Bytes()
+	// }
+
+	// MCPE fork: Ignoring compression parameter and writing zlib compression
+	var zbuffer bytes.Buffer
+	zwrite := zlib.NewWriter(&zbuffer)
+	zwrite.Write(buf.Bytes())
+	zwrite.Close()
+	tmp := make([]byte, blockTrailerLen)
+	tmp[0] = blockTypeZlibCompression
+	_, _ = zbuffer.Write(tmp)
+	b = zbuffer.Bytes()
 
 	// Calculate the checksum.
 	n := len(b) - 4
