@@ -2,7 +2,8 @@
 
 This is a fork of [syndtr/goleveldb](https://github.com/syndtr/goleveldb) for the sole purpose of using it to access Minecraft Portable Edition exported .mcworld files.
 
-At this time, only the read function has been changed. I have successfully opened and read the db folder of an MCPE .mcworld file with these changes. MCPE-compatible writing is not yet implemented.
+I have successfully opened and read the db folder of an MCPE .mcworld file with these changes.
+I have successfully written terrain blocks into the level and was able to play with the modified terrain.
 
 My project using this fork: [midnightfreddie/McpeTool](https://github.com/midnightfreddie/McpeTool)
 
