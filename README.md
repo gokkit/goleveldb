@@ -1,6 +1,6 @@
-# Go LevelDB with modifications to read Minecraft Portable Edition exported worlds
+# Go LevelDB with modifications to read Minecraft Pocket Edition exported worlds
 
-This is a fork of [syndtr/goleveldb](https://github.com/syndtr/goleveldb) for the sole purpose of using it to access Minecraft Portable Edition exported .mcworld files.
+This is a fork of [syndtr/goleveldb](https://github.com/syndtr/goleveldb) for the sole purpose of using it to access Minecraft Pocket Edition exported .mcworld files.
 
 I have successfully opened and read the db folder of an MCPE .mcworld file with these changes.
 I have successfully written terrain blocks into the level and was able to play with the modified terrain.
