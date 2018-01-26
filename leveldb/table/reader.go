@@ -591,7 +591,7 @@ func (r *Reader) readRawBlock(bh blockHandle, verifyChecksum bool) ([]byte, erro
 			return nil, r.newErrCorruptedBH(bh, err.Error())
 		}
 		data = decData
-	case blockTypeZlibCompression:
+	case blockTypeZlibCompression, blockTypeZlibCompressionRaw:
 		decLen := bytes.NewReader(data[:bh.length])
 		zr, err := zlib.NewReader(decLen)
 		if err != nil {

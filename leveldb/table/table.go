@@ -150,8 +150,11 @@ const (
 	// The block type gives the per-block compression format.
 	// These constants are part of the file format and should not be changed.
 	blockTypeNoCompression     = 0
-	blockTypeSnappyCompression = 1
-	blockTypeZlibCompression   = 2
+    blockTypeSnappyCompression = 1
+    // The following are MCPE-specific and not defined in the upstream
+    blockTypeZlibCompression   = 2
+    // Added to github.com/Mojang/leveldb-mcpe on 2017-08-02 aac9314ae2800a203e1be5102fa00ca972f3449c
+	blockTypeZlibCompressionRaw   = 4
 
 	// Generate new filter every 2KB of data
 	filterBaseLg = 11
