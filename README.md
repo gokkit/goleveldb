@@ -11,13 +11,15 @@ My project using this fork: [midnightfreddie/McpeTool](https://github.com/midnig
 ## Fork philosophy / strategy
 
 In short, this fork is intended to work only with the db folder inside .mcworld files exported by MCPE. This involves
-using zlib compression as previously-undefined compression type 2 for reading and writing instead of Snappy compression (type 1).
+using zlib compression as previously-undefined compression types 2 and 4 for reading and writing instead of Snappy compression (type 1).
 These changes will be made without regard to compatibility for other uses or for consistency with conflicting options settings or defaults.  
 
-Since zlib compression is non-standard in LevelDB, and since MCPE appears to be the only application using zlib in LevelDB,
-this project presumes there is no upstream interest in supporting zlib compression. Reflexively, this fork has no reason
+Since zlib and flate compression is non-standard in LevelDB, and since MCPE appears to be the only application using zlib and flate in LevelDB,
+this project presumes there is no upstream interest in supporting zlib or flate compression. Reflexively, this fork has no reason
 to support LevelDB outside of accessing MCPE world files. Therefore, upon future upstream syncs and updates:
 
 - All self-repo import statements will be updated to this forked repo
-- Reading and writing will force zlib compression as compression type 2
+- Writing will force zlib compression as compression type 2
+- Compression type 2 will be read as zlib deflate
+- Compression type 4 will be read as flate deflate
 - Changes may be made that break or ignore options settings or default settings otherwise available in the upstream
