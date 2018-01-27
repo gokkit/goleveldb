@@ -9,6 +9,7 @@ package table
 import (
 	"bytes"
 	"compress/zlib"
+	"compress/flate"
 	"encoding/binary"
 	"fmt"
 	"io"
@@ -597,6 +598,17 @@ func (r *Reader) readRawBlock(bh blockHandle, verifyChecksum bool) ([]byte, erro
 		if err != nil {
 			return nil, r.newErrCorruptedBH(bh, err.Error())
 		}
+		data, err = ioutil.ReadAll(zr)
+		if err != nil {
+			return nil, r.newErrCorruptedBH(bh, err.Error())
+		}
+	case blockTypeZlibCompressionRaw:
+		var err error
+		decLen := bytes.NewReader(data[:bh.length])
+		zr := flate.NewReader(decLen)
+		// if err != nil {
+		// 	return nil, r.newErrCorruptedBH(bh, err.Error())
+		// }
 		data, err = ioutil.ReadAll(zr)
 		if err != nil {
 			return nil, r.newErrCorruptedBH(bh, err.Error())
